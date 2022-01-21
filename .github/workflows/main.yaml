@@ -19,7 +19,7 @@ jobs:
          repo: spring-boot-service-01
          github_token: ${{ secrets.TIGGER_ACCESS_TOKEN }}
     #github_user: github-user
-         workflow_file_name: main.yaml
+         workflow_file_name: pr.yaml
          ref: main
       - name: deploye
         run: |
