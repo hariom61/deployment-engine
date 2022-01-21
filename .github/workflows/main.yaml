@@ -15,8 +15,7 @@ jobs:
           sleep 10s
       - uses: convictional/trigger-workflow-and-wait@v1.3.0
         with:
-         
-         owner: HARIOM
+         owner: hariom
          repo: deployment-service
          github_token: ${{ secrets.TIGGER_ACCESS_TOKEN }}
     #github_user: github-user
@@ -24,6 +23,7 @@ jobs:
       - name: deploye
         run: |
           echo "deploy  web app"
+          sleep 10s
 
     #ref: release-branch
     #wait_interval: 10
