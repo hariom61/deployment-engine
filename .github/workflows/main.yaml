@@ -2,7 +2,7 @@ name: Deploy
 on:
   push:
     branches:
-      - "master"
+      - "main"
     
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
          workflow_file_name: main.yml
       - name: deploye
         run: |
-          echo "deploy web app"
+          echo "deploy  web app"
 
     #ref: release-branch
     #wait_interval: 10
