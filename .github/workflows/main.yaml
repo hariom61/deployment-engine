@@ -1,6 +1,6 @@
 name: Deploy
 on:
-  pull_request:
+  pull_request
     
 jobs:
   build:
@@ -13,12 +13,12 @@ jobs:
           sleep 10s
       - uses: convictional/trigger-workflow-and-wait@v1.3.0
         with:
-         owner: hariom
+         #owner: hariom
          repo: spring-boot-service-01
          github_token: ${{ secrets.TIGGER_ACCESS_TOKEN }}
     #github_user: github-user
          workflow_file_name: pr.yaml
-         ref: feature/cicd
+         ref: main
       - name: deploye
         run: |
           echo "deploy  web app"
