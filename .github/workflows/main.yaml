@@ -1,8 +1,6 @@
 name: Deploy
 on:
-  push:
-    branches:
-      - "main"
+  pull_request:
     
 jobs:
   build:
@@ -20,7 +18,7 @@ jobs:
          github_token: ${{ secrets.TIGGER_ACCESS_TOKEN }}
     #github_user: github-user
          workflow_file_name: pr.yaml
-         ref: main
+         ref: feature/cicd
       - name: deploye
         run: |
           echo "deploy  web app"
