@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: build web
         run: |
-          ehco "build web app"
+          echo "build web app"
           sleep 10s
       - uses: convictional/trigger-workflow-and-wait@v1.3.0
         with:
