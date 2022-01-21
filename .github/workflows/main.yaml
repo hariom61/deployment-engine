@@ -1,0 +1,34 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - "master"
+    
+jobs:
+  build:
+    name: run and b
+    runs-on: ubuntu-latest
+    steps:
+      - name: build web
+        run: |
+          ehco "build web app"
+          sleep 10s
+      - uses: convictional/trigger-workflow-and-wait@v1.3.0
+        with:
+         
+         owner: HARIOM
+         repo: deployment-service
+         github_token: ${{ secrets.TIGGER_ACCESS_TOKEN }}
+    #github_user: github-user
+         workflow_file_name: main.yml
+      - name: deploye
+        run: |
+          echo "deploy web app"
+
+    #ref: release-branch
+    #wait_interval: 10
+    #inputs: '{}'
+    #propagate_failure: false
+    #trigger_workflow: true
+    #wait_workflow: true
+     
