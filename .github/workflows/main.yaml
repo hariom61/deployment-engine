@@ -20,7 +20,7 @@ jobs:
          repo: deployment-service
          github_token: ${{ secrets.TIGGER_ACCESS_TOKEN }}
     #github_user: github-user
-         workflow_file_name: main.yml
+         workflow_file_name: main.yaml
       - name: deploye
         run: |
           echo "deploy  web app"
