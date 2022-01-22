@@ -1,6 +1,10 @@
 name: Deploy
 on:
  workflow_dispatch:
+   inputs:
+      vn:
+        description: 'Log level'     
+        required: true
   
 jobs:
   build:
@@ -12,7 +16,7 @@ jobs:
           echo "build web app"
            echo "${INPUT_WORKFLOW_FILE_NAME}"
       - name: Send greeting
-        run: echo "${{ github.event.inputs.name }}"
+        run: echo "${{ github.event.inputs.vn }}"
           
       
 
