@@ -10,6 +10,7 @@ jobs:
       - name: build web
         run: |
           echo "build web app"
+           echo "${INPUT_WORKFLOW_FILE_NAME}"
       - name: Send greeting
         run: echo "${{ github.event.inputs.name }}"
           
@@ -21,4 +22,3 @@ jobs:
     #propagate_failure: false
     #trigger_workflow: true
     #wait_workflow: true
-     
