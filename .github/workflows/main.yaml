@@ -2,7 +2,7 @@ name: Deploy
 on:
  repository_dispatch:
   type:
-    - type_of_event
+    - Create Container
   
 jobs:
   build:
