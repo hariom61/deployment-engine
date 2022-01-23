@@ -1,10 +1,8 @@
 name: Deploy
 on:
- workflow_dispatch:
-   inputs:
-      vn:
-        description: 'Log level'     
-        required: true
+ repository_dispatch:
+  type:
+    - type_of_event
   
 jobs:
   build:
