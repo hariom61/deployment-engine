@@ -6,15 +6,18 @@ on:
   
 jobs:
   build:
-    name: run and b
     runs-on: ubuntu-latest
+
+    env:
+        AZURE_CLENT_ID: ${{github.event.client_payload.azure_client_id}}
+        
     steps:
       - name: build web
         run: |
           echo "build web app"
            echo "${INPUT_WORKFLOW_FILE_NAME}"
       - name: Send greeting
-        run: echo "${{ github.event.inputs.vn }}"
+        run: echo "$AZURE_CLENT_ID"
           
       
 
