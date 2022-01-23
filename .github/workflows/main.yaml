@@ -9,8 +9,16 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-        AZURE_CLENT_ID: ${{github.event.client_payload.azure_client_id}}
-        
+        ARM_CLIENT_ID: ${{github.event.client_payload.azure_client_id}}
+        ARM_CLIENT_SECRET: ${{github.event.client_payload.azure_pass}}   
+        ARM_TENANT_ID: ${{github.event.client_payload.azure_tenant_id}}      
+        RSG_NAME: ${{github.event.client_payload.rsg_name}}              
+        ACI_NAME: ${{github.event.client_payload.container_name}}           
+        ACI_PORT:  ${{github.event.client_payload.aci_port}}    
+        IMAGE:     ${{github.event.client_payload.docker_image_name}}     
+
+
+
     steps:
       - name: build web
         run: |
@@ -18,6 +26,15 @@ jobs:
            echo "${INPUT_WORKFLOW_FILE_NAME}"
       - name: Send greeting
         run: echo "$AZURE_CLENT_ID"
+
+      - name: AZ Login
+        run: 
+          az login --service-principal --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
+
+      - name: Deploy Image on Azure Container
+        run: 
+             az container create --resource-group $RSG_NAME --name $ACI_NAME --$IMAGE --$ACI_PORT
+ 
           
       
 
