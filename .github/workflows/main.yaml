@@ -16,7 +16,7 @@ jobs:
         RSG_NAME: sandbox          
         ACI_NAME: az-sandbox-container           
         ACI_PORT:  8080
-        IMAGE:     ${{github.event.client_payload.docker_image_name}}     
+        IMAGE: ${{github.event.client_payload.docker_image_name}}     
 
 
 
