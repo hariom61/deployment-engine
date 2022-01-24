@@ -13,9 +13,9 @@ jobs:
         ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
         ARM_SUBSCRIPTION_ID: ${{secrets.AZ_SANDBOX_SPN_SUBSCRIPTION_ID}}
         ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
-        RSG_NAME: ${{github.event.client_payload.rsg_name}}              
-        ACI_NAME: ${{github.event.client_payload.container_name}}           
-        ACI_PORT:  ${{github.event.client_payload.aci_port}}    
+        RSG_NAME: sandbox          
+        ACI_NAME: az-sandbox-container           
+        ACI_PORT:  8080
         IMAGE:     ${{github.event.client_payload.docker_image_name}}     
 
 
