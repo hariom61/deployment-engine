@@ -14,11 +14,9 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{secrets.AZ_SANDBOX_SPN_SUBSCRIPTION_ID}}
         ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
         RSG_NAME: sandbox          
-        ACI_NAME: az-sandbox-container           
+        ACI_NAME: az-sandbox-spring-boot-service-containe-01           
         ACI_PORT:  8080
         IMAGE: ${{github.event.client_payload.docker_image_name}}     
-
-
 
     steps:
       - name: build web
@@ -27,22 +25,32 @@ jobs:
            echo "${INPUT_WORKFLOW_FILE_NAME}"
       - name: Send greeting
         run: echo "$AZURE_CLENT_ID"
-
+ 
       - name: AZ Login
         run: 
           az login --service-principal --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
           
-
       - name: Deploy Image on Azure Container
         run: 
              az container create --resource-group $RSG_NAME --name $ACI_NAME --image $IMAGE --ports $ACI_PORT
- 
-          
-      
 
-    #ref: release-branch
-    #wait_interval: 10
-    #inputs: '{}'
-    #propagate_failure: false
-    #trigger_workflow: true
-    #wait_workflow: true
+      - name: Send mail
+        if: always()
+        uses: dawidd6/action-send-mail@v2
+        with:
+        # mail server settings
+           server_address: smtp.gmail.com
+           server_port: 465
+           # user credentials
+           username: ${{ secrets.EMAIL_USERNAME }}
+           password: ${{ secrets.EMAIL_PASSWORD }}
+           # email subject
+           subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+           # email body as text
+           body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+           # comma-separated string, send email to
+           to: system-notifications-aaaafmsg32fmirfwp5syf3hvky@devops-aru7798.slack.com
+           cc: hariomdubey91@gmail.com
+           reply_to: hariomdubey91@gmail.com
+           # from email name
+           from: spring-boot-actuator        
