@@ -2,7 +2,7 @@ name: Deploy
 on:
  repository_dispatch:
   type:
-    - create_container
+    - sandbox-deploy-spring-boot-artifact
   
 jobs:
   build:
@@ -16,25 +16,23 @@ jobs:
         RSG_NAME: sandbox          
         ACI_NAME: az-sandbox-spring-boot-service-containe-01           
         ACI_PORT:  8080
-        IMAGE: ${{github.event.client_payload.docker_image_name}}     
+        SPRING_BOOT_ARTIFACT: ${{github.event.client_payload.deploye_artifact}}  
+        RECIVER_EMAIL: ${{secrets.RECIVER_EMAIL}}
+        CC_EMAIL: ${{secrets.CC_EMAIL}}
+        REPLY_TO_EMAIL: ${{secrets.REPLY_TO_EMAIL}}
+        SANDBOX_SERVICE_NAME: ${{secrets.SANDBOX_SERVICE_NAME}}   
 
     steps:
-      - name: build web
-        run: |
-          echo "build web app"
-           echo "${INPUT_WORKFLOW_FILE_NAME}"
-      - name: Send greeting
-        run: echo "$AZURE_CLENT_ID"
- 
+    
       - name: AZ Login
         run: 
           az login --service-principal --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
           
       - name: Deploy Image on Azure Container
         run: 
-             az container create --resource-group $RSG_NAME --name $ACI_NAME --image $IMAGE --ports $ACI_PORT
+             az container create --resource-group $RSG_NAME --name $ACI_NAME --image $SPRING_BOOT_ARTIFACT --ports $ACI_PORT
 
-      - name: Send mail
+      - name: Notify Card
         if: always()
         uses: dawidd6/action-send-mail@v2
         with:
