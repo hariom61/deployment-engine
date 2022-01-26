@@ -1,4 +1,4 @@
-name: Deploy
+name: Deployment Service
 on:
  repository_dispatch:
   type:
@@ -17,10 +17,11 @@ jobs:
         ACI_NAME: az-sandbox-spring-boot-service-containe-01           
         ACI_PORT:  8080
         SPRING_BOOT_ARTIFACT: ${{github.event.client_payload.deploye_artifact}}  
-        RECIVER_EMAIL: ${{secrets.RECIVER_EMAIL}}
+        EMAIL_RECIPIENT: ${{secrets.EMAIL_RECIPIENT}}
         CC_EMAIL: ${{secrets.CC_EMAIL}}
         REPLY_TO_EMAIL: ${{secrets.REPLY_TO_EMAIL}}
-        SANDBOX_SERVICE_NAME: ${{secrets.SANDBOX_SERVICE_NAME}}   
+        SANDBOX_SERVICE_NAME: ${{secrets.SANDBOX_SERVICE_NAME}}
+ 
 
     steps:
     
@@ -47,8 +48,8 @@ jobs:
            # email body as text
            body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
            # comma-separated string, send email to
-           to: cicd-aaaafmn7aomgh2dc7lkiqj2im4@devops-aru7798.slack.com
-           cc: hariomdubey91@gmail.com
-           reply_to: hariomdubey91@gmail.com
+           to: ${{ env.EMAIL_RECIPIENT }}
+           cc: $CC_EMAIL
+           reply_to: $REPLY_TO_EMAIL
            # from email name
-           from: spring-boot-actuator        
+           from: $SANDBOX_SERVICE_NAME    
