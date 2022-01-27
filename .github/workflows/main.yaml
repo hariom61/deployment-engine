@@ -1,4 +1,4 @@
-name: Deployment Service
+name: Deployment Engine
 on:
  repository_dispatch:
   type:
