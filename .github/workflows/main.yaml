@@ -49,7 +49,7 @@ jobs:
            body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
            # comma-separated string, send email to
            to: ${{ env.EMAIL_RECIPIENT }}
-           cc: $CC_EMAIL
-           reply_to: $REPLY_TO_EMAIL
+           cc: ${{ env.CC_EMAIL }}
+           reply_to: ${{ env.REPLY_TO_EMAIL }}
            # from email name
-           from: $SANDBOX_SERVICE_NAME    
+           from: ${{ env.SANDBOX_SERVICE_NAME }}   
