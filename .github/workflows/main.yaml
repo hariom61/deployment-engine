@@ -34,7 +34,7 @@ jobs:
         run: |
           git config user.email "github-action-pr-bot@github.com"
           git config user.name "Github action pr bot"
-          git branch workflow/yaml
+          git branch pr/yaml
           git checkout workflow/yaml
   
   
@@ -46,8 +46,7 @@ jobs:
           cat sandbox/spring-boot-service-01.json
           git add -A
           git commit -m "updated"
-          git fetch 
-          git push  origin workflow/yaml
+          git push origin workflow/yaml -f 
 #      - name: print value
 #        run: 
 #          echo ${{ steps.vars.outputs.version }}
