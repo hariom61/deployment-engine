@@ -44,6 +44,7 @@ jobs:
   
   
       - name: update file
+        run:
           echo "$( jq '.version = "4.2.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
           gti commit -m "update"
           git push -u origin workflow/yaml
