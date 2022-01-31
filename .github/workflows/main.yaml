@@ -29,11 +29,6 @@ jobs:
         run: 
           az login --service-principal --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
           
-      - name: Deploy Image on Azure Container
-        run: 
-             az container create --resource-group $RSG_NAME --name $ACI_NAME --image $SPRING_BOOT_ARTIFACT --ports $ACI_PORT 
-    
-    
       - name: Create Branch
         run: 
           git config user.email "github-action-pr-bot@github.com"
@@ -48,6 +43,29 @@ jobs:
           echo "$( jq '.version = "4.2.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
           gti commit -m "update"
           git push -u origin workflow/yaml
+
+
+
+
+      - name: Deploy Image on Azure Container
+        run: 
+             az container create --resource-group $RSG_NAME --name $ACI_NAME --image $SPRING_BOOT_ARTIFACT --ports $ACI_PORT 
+    
+    #
+    #  - name: Create Branch
+    #    run: 
+    #      git config user.email "github-action-pr-bot@github.com"
+    #      git config user.name "Github action pr Bot"
+    #      git branch workflow/yaml
+    #      git checkout workflow/yaml
+  #
+  #
+  #
+    #  - name: update file
+    #    run:
+    #      echo "$( jq '.version = "4.2.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
+    #      gti commit -m "update"
+    #      git push -u origin workflow/yaml
 
     #  - name: Create Branch
     #    run: 
