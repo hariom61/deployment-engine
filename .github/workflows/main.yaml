@@ -31,8 +31,8 @@ jobs:
           
       - name: Create Branch
         run: 
-          git config user.email "github-action-pr-bot@github.com"
-          git config user.name "Github action pr Bot"
+          git config user.email "hariomdubey91@gmail.com"
+          git config user.name "hariom61"
           git branch workflow/yaml
           git checkout workflow/yaml
   
