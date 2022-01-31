@@ -31,7 +31,7 @@ jobs:
           
       - name: Deploy Image on Azure Container
         run: 
-             az container create --resource-group $RSG_NAME --name $ACI_NAME --image $SPRING_BOOT_ARTIFACT --ports $ACI_PO  
+             az container create --resource-group $RSG_NAME --name $ACI_NAME --image $SPRING_BOOT_ARTIFACT --ports $ACI_PORT 
     
     
       - name: Create Branch
