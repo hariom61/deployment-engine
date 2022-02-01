@@ -10,7 +10,7 @@ on:
     types:
       - completed
        
- # status: {}
+  status: {}
 jobs:
   automerge:
     runs-on: ubuntu-latest
