@@ -17,12 +17,13 @@ jobs:
         ACI_NAME: az-sandbox-spring-boot-service-container-01           
         ACI_PORT:  8080
         SPRING_BOOT_ARTIFACT: ${{github.event.client_payload.deploy_artifact}}  
+        SERVICE_VERSION : ${{github.event.client_payload.LATEST_TAG}}
         EMAIL_RECIPIENT: ${{secrets.EMAIL_RECIPIENT}}
         CC_EMAIL: ${{secrets.CC_EMAIL}}
         REPLY_TO_EMAIL: ${{secrets.REPLY_TO_EMAIL}}
         SANDBOX_SERVICE_NAME: ${{secrets.SANDBOX_SERVICE_NAME}}
         BRANCHNAME: auto-update-version
- 
+        FILE_PATH: sandbox/spring-boot-service-01.json
 
     steps:
       - uses: actions/checkout@v2
@@ -43,8 +44,8 @@ jobs:
   
       - name: Update Deployment Repo
         run: |
-          echo "$( jq '.version = "2.9.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
-          cat sandbox/spring-boot-service-01.json           
+          echo "$( jq '.version = "$SERVICE_VERSION "' $FILE_PATH )" > $FILE_PATH
+          cat $FILE_PATH           
           git commit -m "updated" .
           git push -u origin $BRANCHNAME 
 
