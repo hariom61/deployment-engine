@@ -24,6 +24,7 @@ jobs:
         SANDBOX_SERVICE_NAME: ${{secrets.SANDBOX_SERVICE_NAME}}
         BRANCH_NAME: upgrade-spring-boot-${{github.event.client_payload.LATEST_TAG}}
         CURRENT_ENV: sandbox
+        SANDBOX_SERVICE: spring-boot-service-01.
 
     steps:
       - uses: actions/checkout@v2
@@ -44,8 +45,8 @@ jobs:
   
       - name: Update Deployment Repo
         run: |
-          echo "$( jq '.version = "${{ env.LATEST_TAG }} "' ${{ env.CURRENT_ENV }}/${{secrets.SANDBOX_SERVICE_NAME}}.json)" > ${{ env.CURRENT_ENV }}/${{secrets.SANDBOX_SERVICE_NAME}}.json
-          cat ${{ env.CURRENT_ENV }}/${{secrets.SANDBOX_SERVICE_NAME}}.json          
+          echo "$( jq '.version = "${{github.event.client_payload.LATEST_TAG}}"' ${{ env.CURRENT_ENV }}/${{env.SANDBOX_SERVICE}}.json)" > ${{ env.CURRENT_ENV }}/${{env.SANDBOX_SERVICE}}.json
+          cat ${{ env.CURRENT_ENV }}/${{ env.SANDBOX_SERVICE}}.json          
           git commit -m "updated" .
           git push -u origin $BRANCH_NAME 
 
