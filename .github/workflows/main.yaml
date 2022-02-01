@@ -62,7 +62,7 @@ jobs:
               repo: context.repo.repo,
               title: `update deployment repp`,
               head: process.env.BRANCH_NAME,
-              base: 'master'
+              base: 'main'
             });
             github.issues.addLabels({
             owner: context.repo.owner,
