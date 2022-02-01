@@ -45,7 +45,7 @@ jobs:
         run: |
           echo "$( jq '.version = "2.2.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
           cat sandbox/spring-boot-service-01.json 
-          git -A 
+          git add -A 
           git commit -m "updated" .
           git -u push origin pr/yaml 
 #      - name: print value
