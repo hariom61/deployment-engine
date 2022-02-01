@@ -36,6 +36,7 @@ jobs:
           git config user.name "Github action pr bot"
           git branch pr/yaml
           git checkout pr/yaml
+          git pull origin master
   
   
   
@@ -43,10 +44,10 @@ jobs:
         id: var
         run: |
           echo "$( jq '.version = "2.2.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
-          cat sandbox/spring-boot-service-01.json
+          cat sandbox/spring-boot-service-01.json 
           git add -A
           git commit -m "updated"
-          git push origin pr/yaml 
+          git -u push origin pr/yaml 
 #      - name: print value
 #        run: 
 #          echo ${{ steps.vars.outputs.version }}
