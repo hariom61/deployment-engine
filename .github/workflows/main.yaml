@@ -35,7 +35,7 @@ jobs:
           git config user.email "github-action-pr-bot@github.com"
           git config user.name "Github action pr bot"
           git branch pr/yaml
-          git checkout -b pr/yaml 
+          git checkout pr/yaml 
           
   
   
@@ -45,8 +45,8 @@ jobs:
         run: |
           echo "$( jq '.version = "2.2.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
           cat sandbox/spring-boot-service-01.json 
-          git add -A
-          git commit -m "updated"
+          
+          git commit sandbox/spring-boot-service-01.json -m "updated"
           git -u push origin pr/yaml 
 #      - name: print value
 #        run: 
