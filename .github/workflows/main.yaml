@@ -29,13 +29,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.TRIGGER_ACCESS_TOKEN }}
       
       - name: AZ Login
         run: 
           az login --service-principal --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
-
+          
+      - name: Create Branch
+        run: |
+          git config user.email "github-action-pr-bot@github.com"
+          git config user.name "Github action pr bot"
+          git branch $BRANCH_NAME
+          git checkout $BRANCH_NAME
+          
+  
+  
   
       - name: Update Deployment Repo
         run: |
