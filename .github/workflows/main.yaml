@@ -22,8 +22,8 @@ jobs:
         CC_EMAIL: ${{secrets.CC_EMAIL}}
         REPLY_TO_EMAIL: ${{secrets.REPLY_TO_EMAIL}}
         SANDBOX_SERVICE_NAME: ${{secrets.SANDBOX_SERVICE_NAME}}
-        BRANCHNAME: auto-update-version
-        FILE_PATH: sandbox/spring-boot-service-01.json
+        BRANCH_NAME: upgrade-spring-boot-${{github.event.client_payload.LATEST_TAG}}
+        CURRENT_ENV: sandbox
 
     steps:
       - uses: actions/checkout@v2
@@ -36,18 +36,18 @@ jobs:
         run: |
           git config user.email "github-action-pr-bot@github.com"
           git config user.name "Github action pr bot"
-          git branch $BRANCHNAME
-          git checkout $BRANCHNAME
+          git branch $BRANCH_NAME
+          git checkout $BRANCH_NAME
           
   
   
   
       - name: Update Deployment Repo
         run: |
-          echo "$( jq '.version = "$SERVICE_VERSION "' $FILE_PATH )" > $FILE_PATH
-          cat $FILE_PATH           
+          echo "$( jq '.version = "${{ env.LATEST_TAG }} "' ${{ env.CURRENT_ENV }}/${{secrets.SANDBOX_SERVICE_NAME}}.json)" > ${{ env.CURRENT_ENV }}/${{secrets.SANDBOX_SERVICE_NAME}}.json
+          cat ${{ env.CURRENT_ENV }}/${{secrets.SANDBOX_SERVICE_NAME}}.json          
           git commit -m "updated" .
-          git push -u origin $BRANCHNAME 
+          git push -u origin $BRANCH_NAME 
 
 
       - name: Create PR 
@@ -55,11 +55,11 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const pr = await github.pills.create({
+            const pr = await github.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: `update deployment repp`,
-              head: process.env.BRANCHNAME,
+              head: process.env.BRANCH_NAME,
               base: 'master'
             });
             github.issues.addLabels({
@@ -67,7 +67,7 @@ jobs:
             repo: context.repo.repo,
             issue_number: pr.data.number,
             labels: ['automerge']
-            })
+            });
     
 
     #      
