@@ -6,6 +6,10 @@ on:
   pull_request_review:
     types:
       - submitted
+  check_suite:
+    types:
+      - completed
+  
   status: {}
 jobs:
   automerge:
@@ -16,3 +20,6 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "automerge"
+          MERGE_RETRY_SLEEP: 15000
+          MERGE_RETRIES: 60
+          MERGE_FILTER_AUTHOR: "my-git-author"
