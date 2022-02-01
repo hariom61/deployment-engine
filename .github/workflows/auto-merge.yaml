@@ -22,4 +22,4 @@ jobs:
           MERGE_LABELS: "automerge"
           MERGE_RETRY_SLEEP: 5000
           MERGE_RETRIES: 10
-          MERGE_FILTER_AUTHOR: "my-git-author"
+          #MERGE_FILTER_AUTHOR: "my-git-author"
