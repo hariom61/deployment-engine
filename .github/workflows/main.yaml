@@ -14,13 +14,14 @@ jobs:
         ARM_SUBSCRIPTION_ID: ${{secrets.AZ_SANDBOX_SPN_SUBSCRIPTION_ID}}
         ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
         RSG_NAME: sandbox          
-        ACI_NAME: az-sandbox-spring-boot-service-containe-01           
+        ACI_NAME: az-sandbox-spring-boot-service-container-01           
         ACI_PORT:  8080
-        SPRING_BOOT_ARTIFACT: ${{github.event.client_payload.deploye_artifact}}  
+        SPRING_BOOT_ARTIFACT: ${{github.event.client_payload.deploy_artifact}}  
         EMAIL_RECIPIENT: ${{secrets.EMAIL_RECIPIENT}}
         CC_EMAIL: ${{secrets.CC_EMAIL}}
         REPLY_TO_EMAIL: ${{secrets.REPLY_TO_EMAIL}}
         SANDBOX_SERVICE_NAME: ${{secrets.SANDBOX_SERVICE_NAME}}
+        BRANCHNAME: auto-update-version
  
 
     steps:
@@ -34,25 +35,47 @@ jobs:
         run: |
           git config user.email "github-action-pr-bot@github.com"
           git config user.name "Github action pr bot"
-          git branch pr/yaml
-          git checkout pr/yaml 
+          git branch $BRANCHNAME
+          git checkout $BRANCHNAME
           
   
   
   
-      - name: update file
+      - name: Update Deployment Repo
         run: |
           echo "$( jq '.version = "2.9.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
           cat sandbox/spring-boot-service-01.json           
           git commit -m "updated" .
-          git push -u origin  pr/yaml
-          
-      - name: pull-request
-        uses: repo-sync/pull-request@v2
+          git push -u origin $BRANCHNAME 
+
+
+      - name: Create PR 
+        uses: actions/github-script@v1.1
         with:
-         destination_branch: "main"
-         github_token: ${{ secrets.GITHUB_TOKEN }}
-         pr_label: "automerge"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = await github.pills.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `update deployment repp`,
+              head: process.env.BRANCHNAME,
+              base: 'master'
+            });
+            github.issues.addLabels({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: pr.data.number,
+            labels: ['automerge']
+            })
+    
+
+    #      
+    #  - name: pull-request
+    #    uses: repo-sync/pull-request@v2
+    #    with:
+    #     destination_branch: "main"
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     pr_label: "automerge"
 
 #      - name: print value
 #        run: 
