@@ -41,9 +41,8 @@ jobs:
   
   
       - name: update file
-        id: var
         run: |
-          echo "$( jq '.version = "2.2.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
+          echo "$( jq '.version = "2.9.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
           cat sandbox/spring-boot-service-01.json           
           git commit -m "updated" .
           git push -u origin  pr/yaml
