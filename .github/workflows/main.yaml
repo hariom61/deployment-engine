@@ -46,7 +46,7 @@ jobs:
           echo "$( jq '.version = "2.2.1"'  sandbox/spring-boot-service-01.json )" > sandbox/spring-boot-service-01.json
           cat sandbox/spring-boot-service-01.json           
           git commit -m "updated" .
-          git push -u origin main pr/yaml
+          git push -u origin  pr/yaml
           
       - name: pull-request
         uses: repo-sync/pull-request@v2
