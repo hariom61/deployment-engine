@@ -35,8 +35,8 @@ jobs:
           git config user.email "github-action-pr-bot@github.com"
           git config user.name "Github action pr bot"
           git branch pr/yaml
-          git checkout pr/yaml
-          git pull origin master
+          git checkout -b pr/yaml 
+          
   
   
   
