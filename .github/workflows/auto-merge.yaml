@@ -7,8 +7,8 @@ on:
     types:
       - submitted
   check_suite:
-    types:
-      - completed
+    types: [rerequested, completed]
+     
        
   status: {}
 jobs:
