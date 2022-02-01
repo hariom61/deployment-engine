@@ -47,7 +47,7 @@ jobs:
           cat sandbox/spring-boot-service-01.json 
           git add -A 
           git commit -m "updated" .
-          git -u push origin pr/yaml 
+          git push origin pr/yaml 
 #      - name: print value
 #        run: 
 #          echo ${{ steps.vars.outputs.version }}
