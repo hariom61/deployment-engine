@@ -52,6 +52,7 @@ jobs:
         with:
          destination_branch: "main"
          github_token: ${{ secrets.GITHUB_TOKEN }}
+         pr_label: "automerge"
 
 #      - name: print value
 #        run: 
