@@ -48,6 +48,12 @@ jobs:
           git commit -m "updated" .
           git push -u origin main pr/yaml
           
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+         destination_branch: "main"
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+
 #      - name: print value
 #        run: 
 #          echo ${{ steps.vars.outputs.version }}
