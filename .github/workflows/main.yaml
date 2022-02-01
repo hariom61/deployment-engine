@@ -60,7 +60,7 @@ jobs:
             const pr = await github.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `update deployment repp`,
+              title: `update deployment repo`,
               head: process.env.BRANCH_NAME,
               base: 'main'
             });
