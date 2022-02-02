@@ -28,18 +28,22 @@ jobs:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
     steps:
-      - uses: actions/checkout@v2
-      
+      - uses: actions/checkout@v2.3.4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+          token: ${{ secrets.TRIGGER_ACCESS_TOKEN }}
+
       - name: AZ Login
         run: 
           az login --service-principal --username $ARM_CLIENT_ID --password $ARM_CLIENT_SECRET --tenant $ARM_TENANT_ID
           
-      - name: Create Branch
-        run: |
-          git config user.email "github-action-pr-bot@github.com"
-          git config user.name "Github action pr bot"
-          git branch $BRANCH_NAME
-          git checkout $BRANCH_NAME
+    #  - name: Create Branch
+    #    run: |
+    #      git config user.email "github-action-pr-bot@github.com"
+    #      git config user.name "Github action pr bot"
+    #      git branch $BRANCH_NAME
+    #      git checkout $BRANCH_NAME
           
   
   
