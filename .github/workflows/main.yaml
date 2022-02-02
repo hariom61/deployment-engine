@@ -28,12 +28,7 @@ jobs:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
     steps:
-      - uses: actions/checkout@v2.3.4
-        with:
-          repository: hariom61/deployment-engine
-          submodules: recursive
-          fetch-depth: 0
-          token: ${{ secrets.TRIGGER_ACCESS_TOKEN }}
+      - uses: actions/checkout@v2
 
       - name: AZ Login
         run: 
