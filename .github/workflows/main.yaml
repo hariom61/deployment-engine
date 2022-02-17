@@ -43,8 +43,8 @@ jobs:
           
       - name: Update Deployment Repo
         run: |
-          echo "$( jq '.version = "${{ github.event.client_payload.deploy_artifact }}"' ${{ env.CURRENT_ENV }}/${{env.SANDBOX_SERVICE}}json)" > ${{ env.CURRENT_ENV }}/${{env.SANDBOX_SERVICE}}json
-          cat ${{ env.CURRENT_ENV }}/${{ env.SANDBOX_SERVICE}}json          
+          echo "$( jq '.version = "${{ github.event.client_payload.deploy_artifact }}"' ${{ env.CURRENT_ENV }}/${{github.event.client_payload.SERVICE_NAME}}son)" > ${{ env.CURRENT_ENV }}/${{github.event.client_payload.SERVICE_NAME}}json
+          cat ${{ env.CURRENT_ENV }}/${{github.event.client_payload.SERVICE_NAME}}json          
           git commit -m "updated" .
           git push -u origin $BRANCH_NAME 
 
@@ -56,7 +56,7 @@ jobs:
             const pr = await github.pulls.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `upgrade ${{ env.SANDBOX_SERVICE_NAME }} version to ${{github.event.client_payload.LATEST_TAG}} `,
+              title: `upgrade ${{github.event.client_payload.SERVICE_NAME}} version to ${{github.event.client_payload.LATEST_TAG}} `,
               head: process.env.BRANCH_NAME,
               base: 'main'
             });
