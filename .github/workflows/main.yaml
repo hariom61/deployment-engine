@@ -43,6 +43,7 @@ jobs:
           
       - name: Update Deployment Repo
         run: |
+
           echo "$( jq '.version = "${{ env.SERVICE_VERSION }}"' ${{ env.CURRENT_ENV }}/${{ env.SANDBOX_SERVICE}}json)" > ${{ env.CURRENT_ENV }}/${{ env.SANDBOX_SERVICE}}json
           cat ${{ env.CURRENT_ENV }}/${{ env.SANDBOX_SERVICE}}json          
           git commit -m "updated" .
